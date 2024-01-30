@@ -1,6 +1,7 @@
 //import
 const path = require('path') //전역모듈
 const HtmlPlugin = require('html-webpack-plugin')
+const CopyPlugin = require('copy-webpack-plugin')
 
 
 
@@ -25,6 +26,11 @@ module.exports = {
   plugins: [
     new HtmlPlugin({
       template: './index.html'
+    }),
+    new CopyPlugin({
+      patterns: [
+        { from: 'static' }
+      ]
     })
   ]
 }
