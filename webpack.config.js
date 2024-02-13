@@ -22,6 +22,27 @@ module.exports = {
     clean: true
     //clean 옵션을 작성하면 그전버전을 제거해준다.
   },
+  //순서가 중요!
+  // css-loader가 먼저 해석된다.
+  // style-loader가 html 코드에 <style> 부분에 삽입해준다.
+  module: {
+    rules: [
+      {
+        test: /\.s?css$/,
+        use: [
+          'style-loader',
+          'css-loader',
+          'postcss-loader',
+          'sass-loader'
+          //터미널에서 Sass-loader와 sass를 설치한다. sass-loader은 sass을 웹팩에서 읽어내기위해서 필요한 패키지이고 sass모듈은 문법해석을위해 필요한 패키지.
+        ]
+      },
+      {
+        test: /\.js$/,
+        use: ['babel-loader']
+      }
+    ]
+  },
   //번들링 후 결과물의 처리 방식 등 다양한 플러그인들을 설정
   plugins: [
     new HtmlPlugin({
@@ -34,3 +55,6 @@ module.exports = {
     })
   ]
 }
+
+// webpack 은 css를  읽을수없다. webpack이 css를 읽을수있도록 도움을 주는 패키지를 설치한다 css-loader
+// style-loader 를 설치한다.
